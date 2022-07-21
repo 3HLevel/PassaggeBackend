@@ -1,0 +1,3 @@
+//  очистка таблицы и сброс auto_increment
+TRUNCATE название_таблицы RESTART IDENTITY;
+

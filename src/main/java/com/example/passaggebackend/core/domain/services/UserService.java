@@ -1,12 +1,13 @@
 package com.example.passaggebackend.core.domain.services;
 
+import com.example.passaggebackend.core.usecases.user.UserRepository;
 import com.example.passaggebackend.data.jpa.entities.UserData;
 import com.example.passaggebackend.data.jpa.repositories.UserRepositoryImpl;
 
 import java.util.List;
 
 public class UserService {
-    private final UserRepositoryImpl uri = new UserRepositoryImpl();
+    private final UserRepository uri = new UserRepositoryImpl();
 
     public UserData findUserById(Long id) {
         return  uri.findById(id);
@@ -20,15 +21,15 @@ public class UserService {
         return uri.findByNickname(nickname);
     }
 
-    public void create(UserData userData) {
+    public void createUser(UserData userData) {
         uri.create(userData);
     }
 
-    public void update(UserData userData) {
+    public void updateUser(UserData userData) {
         uri.update(userData);
     }
 
-    public void delete(UserData userData) {
+    public void deleteUser(UserData userData) {
         uri.delete(userData);
     }
 
