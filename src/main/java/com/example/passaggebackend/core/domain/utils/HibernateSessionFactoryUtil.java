@@ -1,13 +1,9 @@
 package com.example.passaggebackend.core.domain.utils;
 
 import com.example.passaggebackend.data.jpa.entities.UserData;
-import org.apache.catalina.User;
-import org.apache.juli.logging.Log;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-
-/*разобраться как работает*/
 
 public class HibernateSessionFactoryUtil {
     private static SessionFactory sessionFactory;
@@ -19,7 +15,8 @@ public class HibernateSessionFactoryUtil {
             try {
                 Configuration configuration = new Configuration().configure();
                 configuration.addAnnotatedClass(UserData.class);
-                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
+                        .applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 
             } catch (Exception e) {

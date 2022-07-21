@@ -1,45 +1,78 @@
 package com.example.passaggebackend.data.jpa.repositories;
 
+import com.example.passaggebackend.core.domain.utils.HibernateSessionFactoryUtil;
 import com.example.passaggebackend.core.usecases.user.UserRepository;
 import com.example.passaggebackend.data.jpa.entities.UserData;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
-import java.util.Optional;
 
 public class UserRepositoryImpl implements UserRepository {
 
     @Override
-    public Optional<UserData> findByNickname(String nickname) {
-        return Optional.empty();
+    public UserData findByNickname(String nickname) {
+        return HibernateSessionFactoryUtil
+                .getSessionFactory()
+                .openSession()
+                .get(UserData.class, nickname);
     }
 
     @Override
-    public Optional<UserData> findByEmail(String email) {
-        return Optional.empty();
+    public UserData findByEmail(String email) {
+        return HibernateSessionFactoryUtil
+                .getSessionFactory()
+                .openSession()
+                .get(UserData.class, email);
     }
 
     @Override
     public List<UserData> findAll() {
-        return null;
+        return (List<UserData>) HibernateSessionFactoryUtil
+                .getSessionFactory()
+                .openSession()
+                .createQuery("From UserData")
+                .list();
     }
 
     @Override
     public UserData findById(Long id) {
-        return null;
+        return HibernateSessionFactoryUtil
+                .getSessionFactory()
+                .openSession()
+                .get(UserData.class, id);
     }
 
     @Override
-    public UserData create(UserData userData) {
-        return null;
+    public void create(UserData userData) {
+        Session session = HibernateSessionFactoryUtil
+                .getSessionFactory()
+                .openSession();
+        Transaction tx1 = session.beginTransaction();
+        session.save(userData);
+        tx1.commit();
+        session.close();
     }
 
     @Override
-    public UserData update(UserData userData) {
-        return null;
+    public void update(UserData userData) {
+        Session session = HibernateSessionFactoryUtil
+                .getSessionFactory()
+                .openSession();
+        Transaction tx1 = session.beginTransaction();
+        session.update(userData);
+        tx1.commit();
+        session.close();
     }
 
     @Override
-    public UserData delete(UserData userData) {
-        return null;
+    public void delete(UserData userData) {
+        Session session = HibernateSessionFactoryUtil
+                .getSessionFactory()
+                .openSession();
+        Transaction tx1 = session.beginTransaction();
+        session.delete(userData);
+        tx1.commit();
+        session.close();
     }
 }
